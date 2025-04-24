@@ -1,24 +1,28 @@
 #include "headers/scene_controller.h"
 
-SceneController::SceneController() : currentScene(nullptr) {}
+namespace RayEngine::Scene {
 
-SceneController::~SceneController() {
-    if (currentScene != nullptr) { delete currentScene; }
-}
+    SceneController::SceneController() : currentScene(nullptr) {}
 
-void SceneController::setCurrentScene(Scene *scene) {
-    if (currentScene != nullptr) { delete currentScene; }
-    currentScene = scene;
-}
+    SceneController::~SceneController() {
+        if (currentScene != nullptr) { delete currentScene; }
+    }
 
-Scene* SceneController::getCurrentScene() const {
-    return currentScene;
-}
+    void SceneController::setCurrentScene(Scene *scene) {
+        if (currentScene != nullptr) { delete currentScene; }
+        currentScene = scene;
+    }
 
-void SceneController::updateScene() {
-    if (currentScene != nullptr) { currentScene->updateScene(); }
-}
+    Scene* SceneController::getCurrentScene() const {
+        return currentScene;
+    }
 
-void SceneController::drawScene() {
-    if (currentScene != nullptr) { currentScene->drawScene(); }
+    void SceneController::updateScene() {
+        if (currentScene != nullptr) { currentScene->updateScene(); }
+    }
+
+    void SceneController::drawScene() {
+        if (currentScene != nullptr) { currentScene->drawScene(); }
+    }
+
 }

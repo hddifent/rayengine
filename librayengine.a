@@ -1,153 +1,167 @@
 !<arch>
 //                                              22        `
 scene_controller.cpp/
-object.cpp/     0           0     0     644     1157      `
+object.cpp/     0           0     0     644     1646      `
 #include "headers/object.h"
 #include <algorithm>
 
-Object::Object() : position({0, 0}), children() {}
+namespace RayEngine::Renderable {
 
-Object::Object(Vector2 position) : position(position), children() {}
+    Object::Object() : position({0, 0}), children() {}
 
-Object::~Object() {
-    clearChildren();
-}
+    Object::Object(Vector2 position) : position(position), children() {}
 
-void Object::setPosition(const Vector2 &position) {
-    this->position = position;
-}
-
-Vector2 Object::getPosition() const {
-    return position;
-}
-
-void Object::addChild(Object *child) {
-    if (child == nullptr) { return; }
-    children.push_back(child);
-}
-
-void Object::removeChild(Object *child) {
-    auto it = std::find(children.begin(), children.end(), child);
-    if (it != children.end()) {
-        delete *it;
-        children.erase(it);
+    Object::~Object() {
+        clearChildren();
     }
-}
 
-void Object::clearChildren() {
-    for (Object *child : children) { delete child; }
-    children.clear();
-}
-
-const std::vector<Object*>& Object::getChildren() const {
-    return children;
-}
-
-void Object::move(const Vector2 &offset) {
-    setPosition({position.x + offset.x, position.y + offset.y});
-}
-
-void Object::draw() {
-    drawSelf();
-    for (Object *child : children) {
-        if (child != nullptr) { child->draw(); }
+    void Object::setPosition(const Vector2 &position) {
+        this->position = position;
     }
-}
 
-scene.cpp/      0           0     0     644     1747      `
+    Vector2 Object::getPosition() const {
+        return position;
+    }
+
+    void Object::addChild(Object *child) {
+        if (child == nullptr) { return; }
+        children.push_back(child);
+    }
+
+    void Object::removeChild(Object *child) {
+        auto it = std::find(children.begin(), children.end(), child);
+        if (it != children.end()) {
+            delete *it;
+            children.erase(it);
+        }
+    }
+
+    void Object::clearChildren() {
+        for (Object *child : children) { delete child; }
+        children.clear();
+    }
+
+    const std::vector<Object*>& Object::getChildren() const {
+        return children;
+    }
+
+    void Object::move(const Vector2 &offset) {
+        setPosition({position.x + offset.x, position.y + offset.y});
+    }
+
+    void Object::draw() {
+        drawSelf(position);
+        for (Object *child : children) {
+            if (child != nullptr) { child->draw(position); }
+        }
+    }
+
+    void Object::draw(const Vector2 &offset) {
+        drawSelf({position.x + offset.x, position.y + offset.y});
+        for (Object *child : children) {
+            if (child != nullptr) { child->draw({position.x + offset.x, position.y + offset.y}); }
+        }
+    }
+    
+}scene.cpp/      0           0     0     644     2128      `
 #include <algorithm>
 #include <stdexcept>
 
 #include "headers/scene.h"
 
-void Scene::updateScene() {
-    for (Renderable *renderable : renderables) {
-        if (renderable != nullptr) { renderable->update(); }
+namespace RayEngine::Scene {
+
+    void Scene::updateScene() {
+        for (RayEngine::Renderable::Renderable *renderable : renderables) {
+            if (renderable != nullptr) { renderable->update(); }
+        }
     }
-}
 
-void Scene::drawScene() {
-    ClearBackground(backgroundColor);
-    for (Renderable *renderable : renderables) {
-        if (renderable != nullptr) { renderable->draw(); }
+    void Scene::drawScene() {
+        ClearBackground(backgroundColor);
+        for (RayEngine::Renderable::Renderable *renderable : renderables) {
+            if (renderable != nullptr) { renderable->draw(); }
+        }
     }
-}
 
-void Scene::unloadScene() {
-    clearRenderables();
-}
-
-Scene::Scene(SceneController *sceneController) : sceneController(sceneController), backgroundColor(BLACK) {
-    loadScene();
-}
-
-Scene::~Scene() {
-    unloadScene();
-}
-
-SceneController* Scene::getSceneController() const {
-    return sceneController;
-}
-
-void Scene::setBackgroundColor(Color color) {
-    backgroundColor = color;
-}
-
-Color Scene::getBackgroundColor() const {
-    return backgroundColor;
-}
-
-void Scene::addRenderable(Renderable *renderable) {
-    if (renderable == nullptr) { return; }
-    renderables.push_back(renderable);
-}
-
-void Scene::removeRenderable(Renderable *renderable) {
-    auto it = std::find(renderables.begin(), renderables.end(), renderable);
-    if (it != renderables.end()) {
-        delete *it;
-        renderables.erase(it);
+    void Scene::unloadScene() {
+        clearRenderables();
     }
-}
 
-void Scene::clearRenderables() {
-    for (Renderable *renderable : renderables) { delete renderable; }
-    renderables.clear();
-}
+    Scene::Scene(SceneController *sceneController) : sceneController(sceneController), backgroundColor(BLACK) {
+        loadScene();
+    }
 
-const std::vector<Renderable*>& Scene::getRenderables() const {
-    return renderables;
-}
+    Scene::~Scene() {
+        unloadScene();
+    }
 
-void Scene::replaceScene(Scene *scene) {
-    if (scene == nullptr) { return; }
-    if (sceneController == nullptr) { throw std::runtime_error("Scene has no attached Scene Controller."); }
-    sceneController->setCurrentScene(scene);
-}
+    SceneController* Scene::getSceneController() const {
+        return sceneController;
+    }
 
-/0              0           0     0     644     653       `
+    void Scene::setBackgroundColor(Color color) {
+        backgroundColor = color;
+    }
+
+    Color Scene::getBackgroundColor() const {
+        return backgroundColor;
+    }
+
+    void Scene::addRenderable(RayEngine::Renderable::Renderable *renderable) {
+        if (renderable == nullptr) { return; }
+        renderables.push_back(renderable);
+    }
+
+    void Scene::removeRenderable(RayEngine::Renderable::Renderable *renderable) {
+        auto it = std::find(renderables.begin(), renderables.end(), renderable);
+        if (it != renderables.end()) {
+            delete *it;
+            renderables.erase(it);
+        }
+    }
+
+    void Scene::clearRenderables() {
+        for (RayEngine::Renderable::Renderable *renderable : renderables) { delete renderable; }
+        renderables.clear();
+    }
+
+    const std::vector<RayEngine::Renderable::Renderable*>& Scene::getRenderables() const {
+        return renderables;
+    }
+
+    void Scene::replaceScene(Scene *scene) {
+        if (scene == nullptr) { return; }
+        if (sceneController == nullptr) { throw std::runtime_error("Scene has no attached Scene Controller."); }
+        sceneController->setCurrentScene(scene);
+    }
+
+}/0              0           0     0     644     758       `
 #include "headers/scene_controller.h"
 
-SceneController::SceneController() : currentScene(nullptr) {}
+namespace RayEngine::Scene {
 
-SceneController::~SceneController() {
-    if (currentScene != nullptr) { delete currentScene; }
+    SceneController::SceneController() : currentScene(nullptr) {}
+
+    SceneController::~SceneController() {
+        if (currentScene != nullptr) { delete currentScene; }
+    }
+
+    void SceneController::setCurrentScene(Scene *scene) {
+        if (currentScene != nullptr) { delete currentScene; }
+        currentScene = scene;
+    }
+
+    Scene* SceneController::getCurrentScene() const {
+        return currentScene;
+    }
+
+    void SceneController::updateScene() {
+        if (currentScene != nullptr) { currentScene->updateScene(); }
+    }
+
+    void SceneController::drawScene() {
+        if (currentScene != nullptr) { currentScene->drawScene(); }
+    }
+
 }
-
-void SceneController::setCurrentScene(Scene *scene) {
-    if (currentScene != nullptr) { delete currentScene; }
-    currentScene = scene;
-}
-
-Scene* SceneController::getCurrentScene() const {
-    return currentScene;
-}
-
-void SceneController::updateScene() {
-    if (currentScene != nullptr) { currentScene->updateScene(); }
-}
-
-void SceneController::drawScene() {
-    if (currentScene != nullptr) { currentScene->drawScene(); }
-}
-
