@@ -18,17 +18,20 @@ private:
 
 protected:
     virtual void loadScene() = 0;
-    virtual void updateScene();
-    virtual void drawScene();
-    virtual void unloadScene();
-
+    void updateScene();
+    void drawScene();
+    void unloadScene();
+    
 public:
     Scene(SceneController *sceneController);
     Scene(const Scene &other) = delete; // Disable copy constructor
-
+    
     virtual ~Scene();
 
     SceneController *getSceneController() const;
+
+    void setBackgroundColor(Color color);
+    Color getBackgroundColor() const;
 
     void addRenderable(Renderable *renderable);
     void removeRenderable(Renderable *renderable);

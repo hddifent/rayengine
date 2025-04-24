@@ -32,6 +32,14 @@ SceneController* Scene::getSceneController() const {
     return sceneController;
 }
 
+void Scene::setBackgroundColor(Color color) {
+    backgroundColor = color;
+}
+
+Color Scene::getBackgroundColor() const {
+    return backgroundColor;
+}
+
 void Scene::addRenderable(Renderable *renderable) {
     if (renderable == nullptr) { return; }
     renderables.push_back(renderable);
