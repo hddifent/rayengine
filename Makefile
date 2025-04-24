@@ -7,14 +7,15 @@ STATIC_LIB = lib$(LIB_NAME).a
 SRC_DIR = src
 OBJ_DIR = obj
 INC_DIR = headers
+RAYLIB_PATH = C:/raylib/raylib
 
 # Compiler and flags
 CXX = g++
-CXXFLAGS = -Wall -O2 -I$(INC_DIR)
+CXXFLAGS = -Wall -O2 -I$(INC_DIR) -I$(RAYLIB_PATH)/src -I$(RAYLIB_PATH)/src/external
 
 # Source and object files
 SRCS = $(wildcard $(SRC_DIR)/*.cpp)
-OBJS = $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS = $(patsubst $(SRC_DIR)/%.cpp, $(OBJ_DIR)/%.o, $(SRCS))
 
 # Default target
 all: $(STATIC_LIB)
@@ -22,6 +23,7 @@ all: $(STATIC_LIB)
 # Build static library
 $(STATIC_LIB): $(OBJS)
 	ar rcs $@ $^
+	ranlib $@
 
 # Compile source files into object files
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.cpp

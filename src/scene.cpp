@@ -1,7 +1,7 @@
 #include <algorithm>
 #include <stdexcept>
 
-#include "headers/scene.h"
+#include "scene.h"
 
 namespace RayEngine::Scene {
 

@@ -1,4 +1,4 @@
-#include "headers/scene_controller.h"
+#include "scene_controller.h"
 
 namespace RayEngine::Scene {
 

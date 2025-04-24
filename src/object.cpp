@@ -1,4 +1,4 @@
-#include "headers/object.h"
+#include "object.h"
 #include <algorithm>
 
 namespace RayEngine::Renderable {
