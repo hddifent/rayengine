@@ -25,6 +25,10 @@ namespace RayEngine::Renderable {
         void draw(const Vector2 &offset);
 
     protected:
+        /// @brief Initializes the object itself.
+        virtual void initSelf() = 0;
+        /// @brief Updates the object itself.
+        virtual void updateSelf() = 0;
         /// @brief Draws the object itself.
         virtual void drawSelf(const Vector2 &anchor) = 0;
 
@@ -46,6 +50,10 @@ namespace RayEngine::Renderable {
         /// @param offset The offset to move the object by.
         void move(const Vector2 &offset);
 
+        /// @brief Initializes the object and its children.
+        void init() override;
+        /// @brief Updates the object and its children.
+        void update() override;
         /// @brief Draws the object and its children.
         void draw() override;
     };

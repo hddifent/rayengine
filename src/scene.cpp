@@ -5,6 +5,12 @@
 
 namespace RayEngine::Scene {
 
+    void Scene::initScene() {
+        for (RayEngine::Renderable::Renderable *renderable : renderables) {
+            if (renderable != nullptr) { renderable->init(); }
+        }
+    }
+
     void Scene::updateScene() {
         for (RayEngine::Renderable::Renderable *renderable : renderables) {
             if (renderable != nullptr) { renderable->update(); }
@@ -22,9 +28,7 @@ namespace RayEngine::Scene {
         clearRenderables();
     }
 
-    Scene::Scene(SceneController *sceneController) : sceneController(sceneController), backgroundColor(BLACK) {
-        loadScene();
-    }
+    Scene::Scene(SceneController *sceneController) : sceneController(sceneController), backgroundColor(BLACK) {}
 
     Scene::~Scene() {
         unloadScene();

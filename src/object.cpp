@@ -20,7 +20,11 @@ namespace RayEngine::Renderable {
     }
 
     void Object::addChild(Object *child) {
-        if (child == nullptr) { return; }
+        if (
+            child == nullptr ||
+            std::find(children.begin(), children.end(), child) != children.end()
+        ) { return; }
+        
         children.push_back(child);
     }
 
@@ -43,6 +47,20 @@ namespace RayEngine::Renderable {
 
     void Object::move(const Vector2 &offset) {
         setPosition({position.x + offset.x, position.y + offset.y});
+    }
+
+    void Object::init() {
+        initSelf();
+        for (Object *child : children) {
+            if (child != nullptr) { child->init(); }
+        }
+    }
+
+    void Object::update() {
+        updateSelf();
+        for (Object *child : children) {
+            if (child != nullptr) { child->update(); }
+        }
     }
 
     void Object::draw() {

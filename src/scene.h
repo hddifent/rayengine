@@ -33,8 +33,9 @@ namespace RayEngine {
             Color backgroundColor;
 
         protected:
-            /// @brief Loads the scene. Called once when Scene is created.
+            /// @brief Loads the scene. Called once by SceneController when Scene is created.
             virtual void loadScene() = 0;
+            void initScene();
             void updateScene();
             void drawScene();
             void unloadScene();

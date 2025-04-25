@@ -9,8 +9,11 @@ namespace RayEngine::Scene {
     }
 
     void SceneController::setCurrentScene(Scene *scene) {
+        if (scene == nullptr) { return; }
         if (currentScene != nullptr) { delete currentScene; }
         currentScene = scene;
+        currentScene->loadScene();
+        currentScene->initScene();
     }
 
     Scene* SceneController::getCurrentScene() const {
