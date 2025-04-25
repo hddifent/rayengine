@@ -51,11 +51,11 @@ namespace RayEngine::Renderable {
         void move(const Vector2 &offset);
 
         /// @brief Initializes the object and its children.
-        void init() override;
+        void init() override final;
         /// @brief Updates the object and its children.
-        void update() override;
+        void update() override final;
         /// @brief Draws the object and its children.
-        void draw() override;
+        void draw() override final;
     };
 
 }
