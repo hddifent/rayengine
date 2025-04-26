@@ -37,7 +37,9 @@ namespace RayEngine::Renderable {
     }
 
     void Object::clearChildren() {
-        for (Object *child : children) { delete child; }
+        for (Object *child : children) {
+            if (child != nullptr) { delete child; }
+        }
         children.clear();
     }
 
