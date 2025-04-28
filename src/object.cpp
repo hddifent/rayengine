@@ -1,5 +1,7 @@
 #include "object.h"
+
 #include <algorithm>
+#include <stdexcept>
 
 namespace RayEngine::Renderable {
 
@@ -33,6 +35,9 @@ namespace RayEngine::Renderable {
         if (it != children.end()) {
             delete *it;
             children.erase(it);
+        }
+        else {
+            throw std::runtime_error("Child not found in the list of children.");
         }
     }
 
