@@ -1,7 +1,11 @@
 #include "dull_object.h"
 
-void RayEngine::Renderable::DullObject::initSelf() {}
+namespace RayEngine::Renderable {
 
-void RayEngine::Renderable::DullObject::updateSelf() {}
+    void DullObject::initSelf() {}
 
-void RayEngine::Renderable::DullObject::drawSelf(const Vector2 &anchor) {}
+    void DullObject::updateSelf() {}
+
+    void DullObject::drawSelf(const Vector2 &anchor) {}
+    
+}
