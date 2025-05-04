@@ -27,8 +27,11 @@ namespace RayEngine::Scene {
     void Scene::unloadScene() {
         clearRenderables();
     }
-
-    Scene::Scene(SceneController *sceneController) : sceneController(sceneController), backgroundColor(BLACK) {}
+    
+    Scene::Scene(SceneController *sceneController, RayEngine::Audio::AudioController *audioController) :
+        sceneController(sceneController),
+        audioController(audioController),
+        backgroundColor(BLACK) {}
 
     Scene::~Scene() {
         unloadScene();
@@ -36,6 +39,10 @@ namespace RayEngine::Scene {
 
     SceneController* Scene::getSceneController() const {
         return sceneController;
+    }
+
+    RayEngine::Audio::AudioController* Scene::getAudioController() const {
+        return audioController;
     }
 
     void Scene::setBackgroundColor(Color color) {

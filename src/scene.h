@@ -6,6 +6,7 @@
 #include <raylib.h>
 #include "renderable.h"
 #include "scene_controller.h"
+#include "audio_controller.h"
 
 namespace RayEngine {
 
@@ -28,6 +29,8 @@ namespace RayEngine {
 
         private:
             SceneController *sceneController;
+            RayEngine::Audio::AudioController *audioController;
+
             std::vector<RayEngine::Renderable::Renderable*> renderables;
 
             Color backgroundColor;
@@ -41,13 +44,14 @@ namespace RayEngine {
             void unloadScene();
             
         public:
-            Scene(SceneController *sceneController);
+            Scene(SceneController *sceneController, RayEngine::Audio::AudioController *audioController);
             Scene(const Scene &other) = delete; // Disable copy constructor
             
             virtual ~Scene();
 
             /// @brief Get the SceneController this scene is attached to.
             SceneController *getSceneController() const;
+            RayEngine::Audio::AudioController *getAudioController() const;
 
             /// @brief Set the background color of the scene.
             void setBackgroundColor(Color color);
