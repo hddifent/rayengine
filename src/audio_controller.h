@@ -25,9 +25,9 @@ namespace RayEngine {
             void loadSoundFx(const char *path);
             void loadMusic(const char *path, bool loop = false);
 
-            void playFx(int fxIndex);
+            void playFx(unsigned int fxIndex);
 
-            void playMusic(int musicIndex);
+            void playMusic(unsigned int musicIndex);
             void pauseMusic();
             void stopMusic();
 

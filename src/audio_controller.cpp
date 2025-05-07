@@ -17,14 +17,14 @@ namespace RayEngine::Audio {
         musics.back().looping = loop;
     }
 
-    void AudioController::playFx(int fxIndex) {
-        if (fxIndex >= 0 && fxIndex < (int)soundFxs.size()) {
+    void AudioController::playFx(unsigned int fxIndex) {
+        if (fxIndex < soundFxs.size()) {
             PlaySound(soundFxs[fxIndex]);
         }
     }
 
-    void AudioController::playMusic(int musicIndex) {
-        if (musicIndex >= 0 && musicIndex < (int)musics.size()) {
+    void AudioController::playMusic(unsigned int musicIndex) {
+        if (musicIndex < musics.size()) {
             stopMusic();
 
             currentMusicIndex = musicIndex;
