@@ -59,7 +59,7 @@ namespace RayEngine {
             Color getBackgroundColor() const;
 
             /// @brief Adds a renderable object to the scene.
-            void addRenderable(RayEngine::Renderable::Renderable *renderable);
+            RayEngine::Renderable::Renderable *addRenderable(RayEngine::Renderable::Renderable *renderable);
             /// @brief Removes a renderable object from the scene.
             void removeRenderable(RayEngine::Renderable::Renderable *renderable);
             /// @brief Clears all renderable objects from the scene.

@@ -53,9 +53,11 @@ namespace RayEngine::Scene {
         return backgroundColor;
     }
 
-    void Scene::addRenderable(RayEngine::Renderable::Renderable *renderable) {
-        if (renderable == nullptr) { return; }
+    RayEngine::Renderable::Renderable* Scene::addRenderable(RayEngine::Renderable::Renderable *renderable) {
+        if (renderable == nullptr) { return nullptr; }
         renderables.push_back(renderable);
+
+        return renderable;
     }
 
     void Scene::removeRenderable(RayEngine::Renderable::Renderable *renderable) {

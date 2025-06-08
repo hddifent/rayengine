@@ -21,13 +21,13 @@ namespace RayEngine::Renderable {
         return position;
     }
 
-    void Object::addChild(Object *child) {
-        if (
-            child == nullptr ||
-            std::find(children.begin(), children.end(), child) != children.end()
-        ) { return; }
+    Object* Object::addChild(Object *child) {
+        if (child == nullptr) { return nullptr; }
+        if (std::find(children.begin(), children.end(), child) != children.end()) { return child; }
         
         children.push_back(child);
+        
+        return child;
     }
 
     void Object::removeChild(Object *child) {

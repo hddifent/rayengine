@@ -41,7 +41,7 @@ namespace RayEngine::Renderable {
         void setPosition(const Vector2 &position);
         Vector2 getPosition() const;
 
-        void addChild(Object *child);
+        Object *addChild(Object *child);
         void removeChild(Object *child);
         void clearChildren();
         const std::vector<Object*> &getChildren() const;
