@@ -9,7 +9,7 @@ ScalingInfo getScalingInfo(int refWidth, int refHeight, int renWidth, int renHei
     if (std::fabs(widthScale - heightScale) < 1e-6) {
         return ScalingInfo{
             Vector2{ 0, 0 },
-            Vector2{ (float)refWidth, (float)renHeight },
+            Vector2{ (float)renWidth, (float)renHeight },
             widthScale
         };
     }
