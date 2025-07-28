@@ -1,0 +1,12 @@
+.cmake
+.idea
+
+# CMake build files
+CMakeFiles
+
+cmake_install.cmake
+CMakeCache.txt
+Makefile
+
+# Build files
+librayengine.a
