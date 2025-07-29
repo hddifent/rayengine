@@ -9,6 +9,8 @@ namespace RayEngine::Renderable {
 
     class Renderer {
     private:
+        Color color;
+
         Anchor anchor;
         const AnchorTranslator *anchorTranslator;
 
@@ -21,8 +23,12 @@ namespace RayEngine::Renderable {
 
     public:
         explicit Renderer(const AnchorTranslator *anchorTranslator);
+        Renderer(const AnchorTranslator *anchorTranslator, const Color &color);
         virtual ~Renderer();
 
+        [[nodiscard]] Color getColor() const;
+
+        void setColor(const Color &color);
         void setAnchor(Anchor anchor);
 
         void render(const Vector2 &position);

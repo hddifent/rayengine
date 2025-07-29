@@ -7,7 +7,6 @@ namespace RayEngine::Renderable {
     class CircleRenderer : public GeometryRenderer {
     private:
         float radius;
-        Color color;
 
     protected:
         Vector2 translateWithAnchor(const Vector2 &position) override;
@@ -18,10 +17,8 @@ namespace RayEngine::Renderable {
         CircleRenderer(float radius, const Color &color);
 
         [[nodiscard]] float getRadius() const;
-        [[nodiscard]] Color getColor() const;
 
         void setRadius(float radius);
-        void setColor(const Color &color);
     };
 
 }

@@ -5,28 +5,18 @@
 namespace RayEngine::Renderable {
     CircleRenderer::CircleRenderer(const float radius) :
         GeometryRenderer(new CenterAnchorTranslator(), GeometryRenderMode::FILLED),
-        radius(radius),
-        color(WHITE) {}
+        radius(radius) {}
 
     CircleRenderer::CircleRenderer(const float radius, const Color &color) :
-        GeometryRenderer(new CenterAnchorTranslator(), GeometryRenderMode::FILLED),
-        radius(radius),
-        color(color) {}
+        GeometryRenderer(new CenterAnchorTranslator(), GeometryRenderMode::FILLED, color),
+        radius(radius) {}
 
     float CircleRenderer::getRadius() const {
         return radius;
     }
 
-    Color CircleRenderer::getColor() const {
-        return color;
-    }
-
     void CircleRenderer::setRadius(const float radius) {
         this->radius = radius;
-    }
-
-    void CircleRenderer::setColor(const Color &color) {
-        this->color = color;
     }
 
     Vector2 CircleRenderer::translateWithAnchor(const Vector2 &position) {
@@ -36,10 +26,10 @@ namespace RayEngine::Renderable {
     void CircleRenderer::draw(const Vector2 &position) {
         switch (getMode()) {
             case GeometryRenderMode::FILLED:
-                DrawCircleV(position, radius, color);
+                DrawCircleV(position, radius, getColor());
                 break;
             case GeometryRenderMode::LINE:
-                DrawCircleLines(position.x, position.y, radius, color);
+                DrawCircleLines(position.x, position.y, radius, getColor());
                 break;
         }
     }

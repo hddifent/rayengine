@@ -12,25 +12,22 @@ namespace RayEngine::Renderable {
     }
 
     void TextRenderer::draw(const Vector2 &position) {
-        DrawText(text.c_str(), position.x, position.y, fontSize, color);
+        DrawText(text.c_str(), position.x, position.y, fontSize, getColor());
     }
 
     TextRenderer::TextRenderer() :
         Renderer(new CornerAnchorTranslator()),
-        fontSize(16),
-        color(WHITE) {}
+        fontSize(16) {}
 
     TextRenderer::TextRenderer(std::string text) :
         Renderer(new CornerAnchorTranslator()),
         text(std::move(text)),
-        fontSize(16),
-        color(WHITE) {}
+        fontSize(16) {}
 
-    TextRenderer::TextRenderer(std::string text, const int fontSize, const Color color) :
-        Renderer(new CornerAnchorTranslator()),
+    TextRenderer::TextRenderer(std::string text, const int fontSize, const Color &color) :
+        Renderer(new CornerAnchorTranslator(), color),
         text(std::move(text)),
-        fontSize(fontSize),
-        color(color) {}
+        fontSize(fontSize) {}
 
     std::string TextRenderer::getText() const {
         return text;
@@ -40,19 +37,11 @@ namespace RayEngine::Renderable {
         return fontSize;
     }
 
-    Color TextRenderer::getColor() const {
-        return color;
-    }
-
     void TextRenderer::setText(const std::string &text) {
         this->text = text;
     }
 
     void TextRenderer::setFontSize(const int fontSize) {
         this->fontSize = fontSize;
-    }
-
-    void TextRenderer::setColor(const Color &color) {
-        this->color = color;
     }
 }

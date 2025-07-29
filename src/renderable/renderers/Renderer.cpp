@@ -10,10 +10,21 @@ namespace RayEngine::Renderable {
     }
 
     Renderer::Renderer(const AnchorTranslator *anchorTranslator) :
-        anchor(Anchor::CENTER), anchorTranslator(anchorTranslator) {}
+        color(WHITE), anchor(Anchor::CENTER), anchorTranslator(anchorTranslator) {}
+
+    Renderer::Renderer(const AnchorTranslator *anchorTranslator, const Color &color) :
+        color(color), anchor(Anchor::CENTER), anchorTranslator(anchorTranslator) {}
 
     Renderer::~Renderer() {
         delete anchorTranslator;
+    }
+
+    Color Renderer::getColor() const {
+        return color;
+    }
+
+    void Renderer::setColor(const Color &color) {
+        this->color = color;
     }
 
     void Renderer::setAnchor(const Anchor anchor) {

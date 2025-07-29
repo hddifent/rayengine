@@ -5,28 +5,18 @@
 namespace RayEngine::Renderable {
     RectangleRenderer::RectangleRenderer(const Vector2 &size) :
         GeometryRenderer(new CornerAnchorTranslator(), GeometryRenderMode::FILLED),
-        size(size),
-        color(WHITE) {}
+        size(size) {}
 
     RectangleRenderer::RectangleRenderer(const Vector2 &size, const Color &color) :
-        GeometryRenderer(new CornerAnchorTranslator(), GeometryRenderMode::FILLED),
-        size(size),
-        color(color) {}
+        GeometryRenderer(new CornerAnchorTranslator(), GeometryRenderMode::FILLED, color),
+        size(size) {}
 
     Vector2 RectangleRenderer::getSize() const {
         return size;
     }
 
-    Color RectangleRenderer::getColor() const {
-        return color;
-    }
-
     void RectangleRenderer::setSize(const Vector2 &size) {
         this->size = size;
-    }
-
-    void RectangleRenderer::setColor(const Color &color) {
-        this->color = color;
     }
 
     Vector2 RectangleRenderer::translateWithAnchor(const Vector2 &position) {
@@ -36,10 +26,10 @@ namespace RayEngine::Renderable {
     void RectangleRenderer::draw(const Vector2 &position) {
         switch (getMode()) {
             case GeometryRenderMode::FILLED:
-                DrawRectangleV(position, size, color);
+                DrawRectangleV(position, size, getColor());
                 break;
             case GeometryRenderMode::LINE:
-                DrawRectangleLines(position.x, position.y, size.x, size.y, color);
+                DrawRectangleLines(position.x, position.y, size.x, size.y, getColor());
                 break;
         }
     }

@@ -10,7 +10,6 @@ namespace RayEngine::Renderable {
     private:
         std::string text;
         int fontSize;
-        Color color;
 
     protected:
         Vector2 translateWithAnchor(const Vector2 &position) override;
@@ -19,15 +18,13 @@ namespace RayEngine::Renderable {
     public:
         TextRenderer();
         explicit TextRenderer(std::string text);
-        TextRenderer(std::string text, int fontSize, Color color);
+        TextRenderer(std::string text, int fontSize, const Color &color);
 
         [[nodiscard]] std::string getText() const;
         [[nodiscard]] int getFontSize() const;
-        [[nodiscard]] Color getColor() const;
 
         void setText(const std::string &text);
         void setFontSize(int fontSize);
-        void setColor(const Color &color);
     };
 
 }

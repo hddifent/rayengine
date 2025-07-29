@@ -9,6 +9,11 @@ namespace RayEngine::Renderable {
         const AnchorTranslator *translator,
         const GeometryRenderMode &mode) : Renderer(translator), mode(mode) {}
 
+    GeometryRenderer::GeometryRenderer(
+        const AnchorTranslator *translator,
+        const GeometryRenderMode &mode,
+        const Color &color) : Renderer(translator, color), mode(mode) {}
+
     void GeometryRenderer::setRenderMode(const GeometryRenderMode &mode) {
         this->mode = mode;
     }
