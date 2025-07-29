@@ -8,7 +8,7 @@
 namespace RayEngine::Renderable {
     void Object::draw(const Vector2 &offset) {
         drawSelf(Vector2{position.x + offset.x, position.y + offset.y});
-        for (Object *obj : children) {
+        for (const std::unique_ptr<Object> &obj : children) {
             if (obj != nullptr) { obj->draw(Vector2{position.x + offset.x, position.y + offset.y}); }
         }
     }
@@ -29,7 +29,7 @@ namespace RayEngine::Renderable {
         return position;
     }
 
-    const std::vector<Object*> &Object::getChildren() const {
+    const std::vector<std::unique_ptr<Object>> &Object::getChildren() const {
         return children;
     }
 
@@ -37,19 +37,24 @@ namespace RayEngine::Renderable {
         this->position = position;
     }
 
-    Object* Object::addChild(Object *child) {
-        if (child == nullptr) { return nullptr; }
-        if (std::find(children.begin(), children.end(), child) != children.end()) {
-            return child;
-        }
+    Object* Object::addChild(std::unique_ptr<Object> child) {
+        if (!child) { return nullptr; }
 
-        children.push_back(child);
-        return child;
+        Object *rawPtr = child.get();
+        children.push_back(std::move(child));
+
+        return rawPtr;
     }
 
     void Object::removeChild(const Object *child) {
-        if (const auto it = std::find(children.begin(), children.end(), child); it != children.end()) {
-            delete *it;
+        const auto it = std::find_if(
+            children.begin(),
+            children.end(),
+            [child](const std::unique_ptr<Object>& ptr) {
+                return ptr.get() == child;
+        });
+
+        if (it != children.end()) {
             children.erase(it);
         }
         else {
@@ -59,9 +64,7 @@ namespace RayEngine::Renderable {
 
     void Object::removeChild(const unsigned int index) {
         if (index < children.size()) {
-            const auto it = children.begin() + index;
-            delete *it;
-            children.erase(it);
+            children.erase(children.begin() + index);
         }
         else {
             throw index_out_of_range_exception();
@@ -69,9 +72,6 @@ namespace RayEngine::Renderable {
     }
 
     void Object::clearChildren() {
-        for (const Object *obj : children) {
-            delete obj;
-        }
         children.clear();
     }
 
@@ -81,22 +81,22 @@ namespace RayEngine::Renderable {
 
     void Object::init() {
         initSelf();
-        for (Object *obj : children) {
-            if (obj != nullptr) { obj->init(); }
+        for (const std::unique_ptr<Object> &obj : children) {
+            if (obj) { obj->init(); }
         }
     }
 
     void Object::update() {
         updateSelf();
-        for (Object *obj : children) {
-            if (obj != nullptr) { obj->update(); }
+        for (const std::unique_ptr<Object> &obj : children) {
+            if (obj) { obj->update(); }
         }
     }
 
     void Object::draw() {
         drawSelf(position);
-        for (Object *obj : children) {
-            if (obj != nullptr) { obj->draw(position); }
+        for (const std::unique_ptr<Object> &obj : children) {
+            if (obj) { obj->draw(position); }
         }
     }
 }

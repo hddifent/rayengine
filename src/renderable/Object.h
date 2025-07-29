@@ -14,7 +14,7 @@ namespace RayEngine::Renderable {
 	class Object : public Renderable {
 	private:
 		Vector2 position;
-		std::vector<Object*> children;
+		std::vector<std::unique_ptr<Object>> children;
 
 		std::shared_ptr<Renderer> renderer;
 
@@ -33,12 +33,12 @@ namespace RayEngine::Renderable {
 
 		// Getters / Setters
 		[[nodiscard]] Vector2 getPosition() const;
-		[[nodiscard]] const std::vector<Object*> &getChildren() const;
+		[[nodiscard]] const std::vector<std::unique_ptr<Object>> &getChildren() const;
 
 		void setPosition(const Vector2 &position);
 
 		// Class Methods
-		Object *addChild(Object *child);
+		Object *addChild(std::unique_ptr<Object> child);
 		void removeChild(const Object *child);
 		void removeChild(unsigned int index);
 		void clearChildren();
