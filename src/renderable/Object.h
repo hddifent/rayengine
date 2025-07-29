@@ -1,6 +1,8 @@
 #ifndef OBJECT_H
 #define OBJECT_H
 
+#include <memory>
+
 #include "Renderable.h"
 #include <raylib.h>
 #include <vector>
@@ -14,7 +16,7 @@ namespace RayEngine::Renderable {
 		Vector2 position;
 		std::vector<Object*> children;
 
-		Renderer *renderer;
+		std::shared_ptr<Renderer> renderer;
 
 		void draw(const Vector2 &offset);
 
@@ -24,8 +26,8 @@ namespace RayEngine::Renderable {
 		virtual void drawSelf(const Vector2 &offset);
 
 	public:
-		explicit Object(Renderer *renderer);
-		Object(Renderer *renderer, const Vector2 &position);
+		explicit Object(const std::shared_ptr<Renderer> &renderer);
+		Object(const std::shared_ptr<Renderer> &renderer, const Vector2 &position);
 
 		~Object() override;
 

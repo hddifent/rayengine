@@ -17,12 +17,11 @@ namespace RayEngine::Renderable {
         renderer->render(offset);
     }
 
-    Object::Object(Renderer *renderer) : position(Vector2{0, 0}), renderer(renderer) {}
+    Object::Object(const std::shared_ptr<Renderer> &renderer) : position(Vector2{0, 0}), renderer(renderer) {}
 
-    Object::Object(Renderer *renderer, const Vector2 &position) : position(position), renderer(renderer) {}
+    Object::Object(const std::shared_ptr<Renderer> &renderer, const Vector2 &position) : position(position), renderer(renderer) {}
 
     Object::~Object() {
-        delete renderer;
         clearChildren();
     }
 
