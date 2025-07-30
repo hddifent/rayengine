@@ -25,10 +25,10 @@ namespace RayEngine::Renderable {
 		virtual void updateSelf() = 0;
 		virtual void drawSelf(const Vector2 &offset);
 
-	public:
 		explicit Object(const std::shared_ptr<Renderer> &renderer);
 		Object(const std::shared_ptr<Renderer> &renderer, const Vector2 &position);
 
+	public:
 		~Object() override;
 
 		// Getters / Setters

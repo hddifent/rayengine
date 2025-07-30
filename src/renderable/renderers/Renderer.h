@@ -21,9 +21,10 @@ namespace RayEngine::Renderable {
         virtual Vector2 translateWithAnchor(const Vector2 &position) = 0;
         virtual void draw(const Vector2 &position) = 0;
 
-    public:
         explicit Renderer(const AnchorTranslator *anchorTranslator);
         Renderer(const AnchorTranslator *anchorTranslator, const Color &color);
+
+    public:
         virtual ~Renderer();
 
         [[nodiscard]] Color getColor() const;

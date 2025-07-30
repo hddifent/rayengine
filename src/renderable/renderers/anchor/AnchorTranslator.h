@@ -6,8 +6,10 @@
 
 namespace RayEngine::Renderable {
     class AnchorTranslator {
-    public:
+    protected:
         AnchorTranslator();
+
+    public:
         virtual ~AnchorTranslator() = default;
 
         [[nodiscard]] virtual Vector2 translateWithAnchor(

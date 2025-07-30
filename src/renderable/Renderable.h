@@ -3,15 +3,17 @@
 
 namespace RayEngine::Renderable {
 
-class Renderable {
-public:
-    Renderable();
-    virtual ~Renderable();
+    class Renderable {
+    protected:
+        Renderable();
 
-    virtual void init() = 0;
-    virtual void update() = 0;
-    virtual void draw() = 0;
-};
+    public:
+        virtual ~Renderable();
+
+        virtual void init() = 0;
+        virtual void update() = 0;
+        virtual void draw() = 0;
+    };
 
 }
 
