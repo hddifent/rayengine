@@ -47,7 +47,7 @@ namespace RayEngine::Scene {
         }
     }
 
-    void Scene::removeRenderable(unsigned int index) {
+    void Scene::removeRenderable(const unsigned int index) {
         if (index < renderables.size()) {
             renderables.erase(renderables.begin() + index);
         }
@@ -73,6 +73,7 @@ namespace RayEngine::Scene {
     }
 
     void Scene::drawScene() const {
+        ClearBackground(backgroundColor);
         for (const std::unique_ptr<Renderable::Renderable> &renderable : renderables) {
             if (renderable) { renderable->draw(); }
         }

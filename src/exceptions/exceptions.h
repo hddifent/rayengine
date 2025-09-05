@@ -5,8 +5,7 @@
 class index_out_of_range_exception : public std::runtime_error {
 public:
     explicit index_out_of_range_exception()
-        : runtime_error("Index out of range.") {
-    }
+        : runtime_error("Index out of range.") {}
 
     ~index_out_of_range_exception() noexcept override;
 
