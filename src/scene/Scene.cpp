@@ -66,7 +66,7 @@ namespace RayEngine::Scene {
         }
     }
 
-    void Scene::updateScene() const {
+    void Scene::updateScene() {
         for (const std::unique_ptr<Renderable::Renderable> &renderable : renderables) {
             if (renderable) { renderable->update(); }
         }

@@ -34,7 +34,7 @@ namespace RayEngine::Scene {
         void clearRenderables();
 
         void initScene() const;
-        void updateScene() const;
+        virtual void updateScene();
         virtual void drawScene() const;
     };
 
