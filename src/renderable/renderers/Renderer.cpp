@@ -5,19 +5,17 @@ namespace RayEngine::Renderable {
         return anchor;
     }
 
-    const AnchorTranslator *Renderer::getAnchorTranslator() const {
-        return anchorTranslator;
+    const std::function<Vector2(const Vector2 &, const Vector2 &, const Anchor &)>& Renderer::getTranslatorFunction() const {
+        return translatorFunction;
     }
 
-    Renderer::Renderer(const AnchorTranslator *anchorTranslator) :
-        color(WHITE), anchor(Anchor::CENTER), anchorTranslator(anchorTranslator) {}
+    Renderer::Renderer(const std::function<Vector2(const Vector2&, const Vector2&, const Anchor&)> &translatorFunction) :
+        color(WHITE), anchor(Anchor::CENTER), translatorFunction(translatorFunction) {}
 
-    Renderer::Renderer(const AnchorTranslator *anchorTranslator, const Color &color) :
-        color(color), anchor(Anchor::CENTER), anchorTranslator(anchorTranslator) {}
+    Renderer::Renderer(const std::function<Vector2(const Vector2&, const Vector2&, const Anchor&)> &translatorFunction, const Color &color) :
+        color(color), anchor(Anchor::CENTER), translatorFunction(translatorFunction) {}
 
-    Renderer::~Renderer() {
-        delete anchorTranslator;
-    }
+    Renderer::~Renderer() = default;
 
     Color Renderer::getColor() const {
         return color;

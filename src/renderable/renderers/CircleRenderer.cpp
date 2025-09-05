@@ -1,14 +1,14 @@
 #include "CircleRenderer.h"
 
-#include "anchor/CenterAnchorTranslator.h"
+#include "anchor/AnchorTranslatorFunction.h"
 
 namespace RayEngine::Renderable {
     CircleRenderer::CircleRenderer(const float radius) :
-        GeometryRenderer(new CenterAnchorTranslator(), GeometryRenderMode::FILLED),
+        GeometryRenderer(getCircleTranslator(), GeometryRenderMode::FILLED),
         radius(radius) {}
 
     CircleRenderer::CircleRenderer(const float radius, const Color &color) :
-        GeometryRenderer(new CenterAnchorTranslator(), GeometryRenderMode::FILLED, color),
+        GeometryRenderer(getCircleTranslator(), GeometryRenderMode::FILLED, color),
         radius(radius) {}
 
     float CircleRenderer::getRadius() const {
@@ -20,7 +20,7 @@ namespace RayEngine::Renderable {
     }
 
     Vector2 CircleRenderer::translateWithAnchor(const Vector2 &position) {
-        return getAnchorTranslator()->translateWithAnchor(position, Vector2{radius, radius}, getAnchor());
+        return getTranslatorFunction()(position, Vector2{radius, radius}, getAnchor());
     }
 
     void CircleRenderer::draw(const Vector2 &position) {

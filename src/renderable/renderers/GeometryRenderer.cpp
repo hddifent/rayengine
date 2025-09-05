@@ -6,13 +6,13 @@ namespace RayEngine::Renderable {
     }
 
     GeometryRenderer::GeometryRenderer(
-        const AnchorTranslator *translator,
-        const GeometryRenderMode &mode) : Renderer(translator), mode(mode) {}
+        const std::function<Vector2(const Vector2&, const Vector2&, const Anchor&)> &translatorFunction,
+        const GeometryRenderMode &mode) : Renderer(translatorFunction), mode(mode) {}
 
     GeometryRenderer::GeometryRenderer(
-        const AnchorTranslator *translator,
+        const std::function<Vector2(const Vector2&, const Vector2&, const Anchor&)> &translatorFunction,
         const GeometryRenderMode &mode,
-        const Color &color) : Renderer(translator, color), mode(mode) {}
+        const Color &color) : Renderer(translatorFunction, color), mode(mode) {}
 
     void GeometryRenderer::setRenderMode(const GeometryRenderMode &mode) {
         this->mode = mode;

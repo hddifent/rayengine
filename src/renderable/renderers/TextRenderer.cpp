@@ -2,13 +2,13 @@
 
 #include <utility>
 
-#include "anchor/CornerAnchorTranslator.h"
+#include "anchor/AnchorTranslatorFunction.h"
 
 namespace RayEngine::Renderable {
     Vector2 TextRenderer::translateWithAnchor(const Vector2 &position) {
         const int textLength = MeasureText(text.c_str(), fontSize);
         const Vector2 size = Vector2{static_cast<float>(textLength), static_cast<float>(fontSize)};
-        return getAnchorTranslator()->translateWithAnchor(position, size, getAnchor());
+        return getTranslatorFunction()(position, size, getAnchor());
     }
 
     void TextRenderer::draw(const Vector2 &position) {
@@ -16,16 +16,16 @@ namespace RayEngine::Renderable {
     }
 
     TextRenderer::TextRenderer() :
-        Renderer(new CornerAnchorTranslator()),
+        Renderer(getRectTranslator()),
         fontSize(16) {}
 
     TextRenderer::TextRenderer(std::string text) :
-        Renderer(new CornerAnchorTranslator()),
+        Renderer(getRectTranslator()),
         text(std::move(text)),
         fontSize(16) {}
 
     TextRenderer::TextRenderer(std::string text, const int fontSize, const Color &color) :
-        Renderer(new CornerAnchorTranslator(), color),
+        Renderer(getRectTranslator(), color),
         text(std::move(text)),
         fontSize(fontSize) {}
 

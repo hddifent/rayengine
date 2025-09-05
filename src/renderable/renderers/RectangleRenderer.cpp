@@ -1,14 +1,14 @@
 #include "RectangleRenderer.h"
 
-#include "anchor/CornerAnchorTranslator.h"
+#include "anchor/AnchorTranslatorFunction.h"
 
 namespace RayEngine::Renderable {
     RectangleRenderer::RectangleRenderer(const Vector2 &size) :
-        GeometryRenderer(new CornerAnchorTranslator(), GeometryRenderMode::FILLED),
+        GeometryRenderer(getRectTranslator(), GeometryRenderMode::FILLED),
         size(size) {}
 
     RectangleRenderer::RectangleRenderer(const Vector2 &size, const Color &color) :
-        GeometryRenderer(new CornerAnchorTranslator(), GeometryRenderMode::FILLED, color),
+        GeometryRenderer(getRectTranslator(), GeometryRenderMode::FILLED, color),
         size(size) {}
 
     Vector2 RectangleRenderer::getSize() const {
@@ -20,7 +20,7 @@ namespace RayEngine::Renderable {
     }
 
     Vector2 RectangleRenderer::translateWithAnchor(const Vector2 &position) {
-        return getAnchorTranslator()->translateWithAnchor(position, size, getAnchor());
+        return getTranslatorFunction()(position, size, getAnchor());
     }
 
     void RectangleRenderer::draw(const Vector2 &position) {

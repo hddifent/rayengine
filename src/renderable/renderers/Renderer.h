@@ -1,9 +1,9 @@
 #ifndef RENDERER_H
 #define RENDERER_H
+#include <functional>
 #include <raylib.h>
 
 #include "anchor/Anchor.h"
-#include "anchor/AnchorTranslator.h"
 
 namespace RayEngine::Renderable {
 
@@ -12,17 +12,17 @@ namespace RayEngine::Renderable {
         Color color;
 
         Anchor anchor;
-        const AnchorTranslator *anchorTranslator;
+        const std::function<Vector2(const Vector2&, const Vector2&, const Anchor&)> translatorFunction;
 
     protected:
         [[nodiscard]] Anchor getAnchor() const;
-        [[nodiscard]] const AnchorTranslator *getAnchorTranslator() const;
+        [[nodiscard]] const std::function<Vector2(const Vector2&, const Vector2&, const Anchor&)> &getTranslatorFunction() const;
 
         virtual Vector2 translateWithAnchor(const Vector2 &position) = 0;
         virtual void draw(const Vector2 &position) = 0;
 
-        explicit Renderer(const AnchorTranslator *anchorTranslator);
-        Renderer(const AnchorTranslator *anchorTranslator, const Color &color);
+        explicit Renderer(const std::function<Vector2(const Vector2&, const Vector2&, const Anchor&)> &translatorFunction);
+        Renderer(const std::function<Vector2(const Vector2&, const Vector2&, const Anchor&)> &translatorFunction, const Color &color);
 
     public:
         virtual ~Renderer();

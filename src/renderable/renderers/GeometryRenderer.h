@@ -17,8 +17,8 @@ namespace RayEngine::Renderable {
     protected:
         [[nodiscard]] GeometryRenderMode getMode() const;
 
-        GeometryRenderer(const AnchorTranslator *translator, const GeometryRenderMode &mode);
-        GeometryRenderer(const AnchorTranslator *translator, const GeometryRenderMode &mode, const Color &color);
+        GeometryRenderer(const std::function<Vector2(const Vector2&, const Vector2&, const Anchor&)> &translatorFunction, const GeometryRenderMode &mode);
+        GeometryRenderer(const std::function<Vector2(const Vector2&, const Vector2&, const Anchor&)> &translatorFunction, const GeometryRenderMode &mode, const Color &color);
 
     public:
 
