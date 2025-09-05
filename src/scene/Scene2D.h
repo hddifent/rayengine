@@ -33,6 +33,7 @@ namespace RayEngine::Scene {
         void moveCamera(const Vector2 &offset);
         void rotateCamera(float rotation);
 
+        void updateScene() override;
         void drawScene() const override;
     };
 

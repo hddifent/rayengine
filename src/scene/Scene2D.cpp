@@ -61,6 +61,11 @@ namespace RayEngine::Scene {
         setCameraRotation(camera.rotation + rotation);
     }
 
+    void Scene2D::updateScene() {
+        if (IsWindowResized()) { calcBaseZoom(); }
+        Scene::updateScene();
+    }
+
     void Scene2D::drawScene() const {
         BeginMode2D(camera);
         Scene::drawScene();
